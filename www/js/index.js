@@ -21,13 +21,75 @@ var app = {
     initialize: function() {
         this.bindEvents();
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+    
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+        var chart = new Highcharts.Chart({
+                                         chart: {
+                                            renderTo: 'container',
+                                            type: 'pie',
+                                            plotBackgroundColor: null,
+                                            plotBorderWidth: null,
+                                            plotShadow: false
+                                         },
+                                         
+                                         title: {
+                                            text: 'Some title'
+                                         },
+                                         
+                                         legend: {
+                                            enabled: false
+                                         },
+                                         
+                                         tooltip: {
+                                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                         },
+                                         
+                                         plotOptions: {
+                                            pie: {
+                                                allowPointSelect: true,
+                                                cursor: 'pointer',
+                                                dataLabels: {
+                                                    enabled: true,
+                                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                                        style: {
+                                                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'gray'
+                                                        }
+                                                }
+                                            }
+                                         },
+                                         
+                                         xAxis: {
+                                            title: {
+                                                text: 'position'
+                                            }
+                                         },
+                                         
+                                         yAxis: {
+                                            title: {
+                                                text: 'score'
+                                            }
+                                         },
+                                         
+                                         series: [{
+                                                  type: 'pie',
+                                                  name: 'Browser share',
+                                                  data: [
+                                                         ['Firefox',   45.0],
+                                                         ['IE',       26.8],
+                                                         {
+                                                            name: 'Chrome',
+                                                            y: 12.8,
+                                                            sliced: true,
+                                                            selected: true
+                                                         },
+                                                         ['Safari',    8.5],
+                                                         ['Opera',     6.2],
+                                                         ['Others',   0.7]
+                                                         ]
+                                                  }]
+                                         });
     },
+    
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
